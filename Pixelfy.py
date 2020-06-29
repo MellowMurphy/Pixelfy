@@ -44,15 +44,19 @@ inputs = glob("inputs/*.png")
 try:
     for inp in inputs:
         name = inp.split("\\")[-1].replace(".png","")
-        img = crop_img(io.imread(inp))
+        try:
+            os.mkdir("outputs\\" + name)
+        except:
+            pass
         
-        io.imsave("cropped.png", img, quality = 100)
+        img = crop_img(io.imread(inp))      
+        io.imsave("outputs/{}/{}_cropped.png".format(name,name), img, quality = 100)
         
         ratio = img.shape[0]/img.shape[1]
         
         sizes = [16,32,64,128]
         
-        os.mkdir("outputs\\" + name)
+        
         
         for size in sizes:
             p_img = np.zeros((int(size*ratio),size,4))
