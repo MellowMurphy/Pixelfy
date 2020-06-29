@@ -23,13 +23,13 @@ def crop_img(img):
         found_color_j = False
         for j in range(img.shape[1]):
             if found_color_j:
-                if img[i][j][3] != 0 or img[i][j][:-1].sum() != 0 or img[i][j][:-1].mean() != 255:
+                if img[i][j][3] != 0 or img[i][j][:-1].mean() != 255:
                     if j > max_j:
                         max_j = j
                 else:
                     break
             else:
-                if img[i][j][3] != 0 or img[i][j][:-1].sum() != 0 or img[i][j][:-1].mean() != 255:
+                if img[i][j][3] != 0 or img[i][j][:-1].mean() != 255:
                     found_color_j = True
                     if j < min_j:
                         min_j = j              
@@ -53,7 +53,7 @@ try:
         except:
             pass
         
-        img = crop_img(io.imread(inp))      
+        img = crop_img(io.imread(inp))/255.0 
         io.imsave("outputs/{}/{}_cropped.png".format(name,name), img, quality = 100)
         
         ratio = img.shape[0]/img.shape[1]
@@ -72,7 +72,7 @@ try:
                     j += 1
                 i += 1
             
-            p_img = crop_img(p_img)/255
+            p_img = crop_img(p_img)
             io.imsave("outputs/{}/{}_{}.png".format(name,name,size), p_img, quality = 100)
             
 except Exception as e: 
