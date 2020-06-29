@@ -9,6 +9,7 @@ import numpy as np
 import skimage.io as io
 from glob import glob
 import os
+import math
 
 def crop_img(img):
     min_i = 0; min_j = np.inf
@@ -60,8 +61,10 @@ try:
         
         for size in sizes:
             p_img = np.zeros((int(size*ratio),size,4))
-            i_interval = (img.shape[0]//p_img.shape[0])+1
-            j_interval = (img.shape[1]//p_img.shape[1])+1
+            i_interval = math.ceil(img.shape[0]/p_img.shape[0])
+            j_interval = math.ceil(img.shape[1]/p_img.shape[1])
+            
+            
             
             i = 0
             while i < p_img.shape[0]:
@@ -73,6 +76,8 @@ try:
                 i += 1
             
             p_img = crop_img(p_img)
+            print(p_img)
+            print("-------------------")
             io.imsave("outputs/{}/{}_{}.png".format(name,name,size), p_img, quality = 100)
             
 except Exception as e: 
