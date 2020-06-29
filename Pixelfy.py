@@ -14,6 +14,10 @@ def crop_img(img):
     min_i = 0; min_j = np.inf
     max_i = 0 ; max_j = -np.inf
     
+    if img.shape[2] == 3:
+        transp = np.ones((img.shape[0], img.shape[1],1))*255
+        img = np.concatenate((img,transp),axis = 2)
+    
     found_color_i = False
     for i in range(img.shape[0]):
         found_color_j = False
@@ -39,7 +43,7 @@ def crop_img(img):
                 max_i = i
     return img[min_i:max_i,min_j:max_j]
 
-inputs = glob("inputs/*.png")
+inputs = glob("inputs/*.png") + glob("inputs/*.jpg")
 
 try:
     for inp in inputs:
