@@ -23,13 +23,13 @@ def crop_img(img):
         found_color_j = False
         for j in range(img.shape[1]):
             if found_color_j:
-                if img[i][j][3] != 0:
+                if img[i][j][3] != 0 or img[i][j][:-1].sum() != 0 or img[i][j][:-1].mean() != 255:
                     if j > max_j:
                         max_j = j
                 else:
                     break
             else:
-                if img[i][j][3] != 0:
+                if img[i][j][3] != 0 or img[i][j][:-1].sum() != 0 or img[i][j][:-1].mean() != 255:
                     found_color_j = True
                     if j < min_j:
                         min_j = j              
@@ -44,7 +44,7 @@ def crop_img(img):
     return img[min_i:max_i,min_j:max_j]
 
 inputs = glob("inputs/*.png") + glob("inputs/*.jpg")
-
+sizes = [16,32,64,128]
 try:
     for inp in inputs:
         name = inp.split("\\")[-1].replace(".png","")
@@ -57,10 +57,6 @@ try:
         io.imsave("outputs/{}/{}_cropped.png".format(name,name), img, quality = 100)
         
         ratio = img.shape[0]/img.shape[1]
-        
-        sizes = [16,32,64,128]
-        
-        
         
         for size in sizes:
             p_img = np.zeros((int(size*ratio),size,4))
