@@ -1,7 +1,8 @@
 # Pixelfy
 
-1. Put your *.jpg* or *.png* images into the `inputs\` folder and run `Pixelfy.py`
-2. Multiple different resolution pixelized images will be in their own folders in `outputs\` 
+1. Put your *.jpg* or *.png* images into the `inputs\` folder.
+2. run `Pixelfy.py` . Multiple different resolution pixelized images will be generated.
+3. Check the images in the `outputs\` folder! Voila!
 
 ## Input Image
 <img src="examples/inputs/jugg.png?raw=true" width="400">
